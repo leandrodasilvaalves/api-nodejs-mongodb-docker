@@ -1,14 +1,24 @@
+# Curso [Udemy: Criando APIs Restful utilizando TypeScript, NodeJs, MongoDb e Docker ](https://www.udemy.com/criando-apis-restful-utilizando-typescript-node-e-mongodb) 
+
+## Dependências
+```shell
 npm i typescript ts-node body-parser express http-status --save
 npm i @types/node @types/body-parser @types/express @types/http-status --save-dev
 npm install mongoose --save
 npm install @types/mongoose --save-dev
 npm i cors --save
 npm i @types/cors --save-dev
+```
 
+## Execução da API
+```shell
 npm run compile
 npm start
+```
 
-objeto teste
+## Objeto JSON Para testar a API
+```json
+
 {
 	"hat":"Ano de 2018 ficará marcado pelo sucesso dos atletas nacionais no Circuito Mundial de Surfe",
 	"title":"Com título de Medina e 11 na elite, 'Brazilian Storm' mostra que veio para ficar",
@@ -18,7 +28,10 @@ objeto teste
 	"link":"https://esporte.uol.com.br/noticia/100000944120/com-bi-de-medina-e-11-na-elite-brazilian-storm-veio-para-ficar.html",
 	"active":true
 }
+```
 
+## Código JavaScript para testar a liberação do Cors
+```javascript
 var url = "http://localhost:3050/api/v1/news";
 fetch(url)
 	.then(data => {
@@ -30,3 +43,4 @@ fetch(url)
 	.catch(error =>{
 		console.log(error);
 	});
+```
