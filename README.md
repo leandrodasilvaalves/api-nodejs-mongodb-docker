@@ -8,6 +8,9 @@ npm install mongoose --save
 npm install @types/mongoose --save-dev
 npm i cors --save
 npm i @types/cors --save-dev
+npm i jsonwebtoken --save
+npm i @types/jsonwebtoken --save-dev
+
 ```
 
 ## Execução da API
@@ -44,3 +47,8 @@ fetch(url)
 		console.log(error);
 	});
 ```
+
+## JWT
+Acessando as rotas protegidas pelo postman. Informar o header **x-access-token** e o **token**
+
+![Postman](https://i.pinimg.com/originals/a0/bf/80/a0bf804e201b33f5be8fe2981456ef21.jpg)
