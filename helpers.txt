@@ -2,6 +2,8 @@ npm i typescript ts-node body-parser express http-status --save
 npm i @types/node @types/body-parser @types/express @types/http-status --save-dev
 npm install mongoose --save
 npm install @types/mongoose --save-dev
+npm i cors --save
+npm i @types/cors --save-dev
 
 npm run compile
 npm start
@@ -16,3 +18,15 @@ objeto teste
 	"link":"https://esporte.uol.com.br/noticia/100000944120/com-bi-de-medina-e-11-na-elite-brazilian-storm-veio-para-ficar.html",
 	"active":true
 }
+
+var url = "http://localhost:3050/api/v1/news";
+fetch(url)
+	.then(data => {
+		return data.json()
+	})
+	.then(res => {
+		console.log(res);
+	})
+	.catch(error =>{
+		console.log(error);
+	});
