@@ -30,6 +30,7 @@ class StartUp {
     routes() {
         this.app.route("/").get((req, res) => res.send({ versão: '0.0.1' }));
         this.app.route("/api/v1/register").post(userController_1.default.register);
+        this.app.route("/api/v1/login").get(userController_1.default.login);
         this.app.use(auth_1.default.validate);
         //newsController
         this.app.route("/api/v1/news").get(newsController_1.default.get);

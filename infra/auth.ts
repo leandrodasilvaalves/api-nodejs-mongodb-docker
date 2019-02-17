@@ -1,6 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import Configs from './configs';
 
+
 class Auth {
     validate(req, res, next) {
         var token = req.headers['x-access-token'];
@@ -23,6 +24,19 @@ class Auth {
                 message: '401 - unauthorized'
             });
         }
+    }
+
+    getToken(user) {
+
+        let payload = {
+            iss: "http://localhost:3050",
+            iat: new Date().getSeconds(),
+            exp: new Date().setMinutes(Configs.tokenExpiration),
+            name: user.userName,
+            email: user.email
+        };
+
+        return jwt.sign(payload, Configs.secret);
     }
 }
 
