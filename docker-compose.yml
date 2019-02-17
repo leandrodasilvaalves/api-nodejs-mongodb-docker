@@ -5,6 +5,9 @@ services:
     build: .
     ports:
       - 5000:3050
+    volumes:
+      - ./dist:/usr/src/app
+      - ./node_modules:/node_modules
     depends_on:
       - db
   
@@ -13,4 +16,3 @@ services:
     image: mongo:latest
     ports:     
       - 27017:27017
-      - 28017:28017
