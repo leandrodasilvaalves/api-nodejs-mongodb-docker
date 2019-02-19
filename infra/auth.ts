@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import Configs from './configs';
-
+import { IUserModel } from '../interfaces/IUserModel';
 
 class Auth {
     validate(req, res, next) {
@@ -26,14 +26,14 @@ class Auth {
         }
     }
 
-    getToken(user) {
+    getToken(user: IUserModel) {
 
         let payload = {
             iss: "http://localhost:3050",
             iat: new Date().getSeconds(),
             exp: new Date().setMinutes(Configs.tokenExpiration),
             name: user.userName,
-            email: user.email
+            email: user.email,
         };
 
         return jwt.sign(payload, Configs.secret);
