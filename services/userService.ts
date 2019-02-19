@@ -2,12 +2,16 @@ import UserRepository from '../repositories/userRepository';
 import { IUserModel } from '../interfaces/IUserModel';
 
 class UserService {
-    create(user) {
+    create(user: IUserModel) {
         return UserRepository.create(user);
     }
 
-    login(user : IUserModel) {
+    login(user: IUserModel) {
         return UserRepository.find({ "email": user.email, "password": user.password });
+    }
+
+    changePassword(user: IUserModel) {
+        return UserRepository.findOneAndUpdate({email: user.email}, {$set:{ password: user.password}});
     }
 }
 
