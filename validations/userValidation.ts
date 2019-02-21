@@ -36,12 +36,12 @@ export class UserValidation extends Validation {
     private validatePhoneNumber() {
         const pattern = '[^\d]+';
         const phoneNumber = this._user.phoneNumber.replace(pattern, '');
-        const test: boolean = phoneNumber.length == 8 || phoneNumber.length == 9;
+        const test: boolean = phoneNumber.length == 10 || phoneNumber.length == 11;
         this.testExpression(test, 'PhoneNumber', 'PhoneNumber invalid');
     }
 
     private validateImage() {
-        const pattern = '(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)';
+        const pattern = '(http(s?):).+\.(?:jpg|png)';
         const regex = new RegExp(pattern);
         this.testExpression(regex.test(this._user.img.toString()), 'Image', 'Image invalid');
     }
