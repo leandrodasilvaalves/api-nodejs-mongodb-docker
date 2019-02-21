@@ -23,10 +23,11 @@ class UserController {
                         email: userData.email,
                         userName: userData.userName,
                         img: userData.img,
-                        token: Auth.getToken(userData),
-                        password: ""
+                        token: Auth.getToken(userData)
                     };
-                    Helper.sendResponse(res, HttpStatus.OK, { logged: true, message: 'Logado com sucesso', loggedUser: loginModel });
+                    Helper.sendResponse(res, HttpStatus.OK, {
+                        logged: true, message: 'Logado com sucesso', loggedUser: loginModel
+                    });
                 }
                 else
                     Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Usuário e/ou senha inválidos!' })
@@ -39,7 +40,7 @@ class UserController {
         userService.changePassword(user)
             .then(data => {
                 const user = <IUserModel>data;
-                Helper.sendResponse(res, HttpStatus.OK, { 
+                Helper.sendResponse(res, HttpStatus.OK, {
                     message: 'Senha atualizada com sucesso', user: { userName: user.userName, email: user.email, img: user.img }
                 });
             })
