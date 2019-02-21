@@ -3,4 +3,5 @@ export interface ILoginModel{
     userName : String;
     img : String;
     token : String;
+    password: String;
 }

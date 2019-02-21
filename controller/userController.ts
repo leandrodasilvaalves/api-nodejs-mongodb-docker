@@ -14,7 +14,7 @@ class UserController {
     }
 
     login(req, res) {
-        const user: IUserModel = req.body;
+        const user: ILoginModel = req.body;
         userService.login(user)
             .then(data => {
                 if (data.length === 1) {
@@ -23,7 +23,8 @@ class UserController {
                         email: userData.email,
                         userName: userData.userName,
                         img: userData.img,
-                        token: Auth.getToken(userData)
+                        token: Auth.getToken(userData),
+                        password: ""
                     };
                     Helper.sendResponse(res, HttpStatus.OK, { logged: true, message: 'Logado com sucesso', loggedUser: loginModel });
                 }
