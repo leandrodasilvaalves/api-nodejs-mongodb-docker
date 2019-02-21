@@ -4,7 +4,7 @@ export abstract class Validation{
     public listErrors: Array<IError>;
 
     public isValid(): boolean{
-        return this.listErrors.length == 0;
+        return <boolean>(this.listErrors.length === 0);
     }
     
     constructor() {
