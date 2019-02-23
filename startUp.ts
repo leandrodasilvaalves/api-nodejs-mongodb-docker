@@ -7,20 +7,22 @@ import NewsController from './controller/newsController';
 import UserController from  './controller/userController';
 import Auth from './infra/auth';
 
-class StartUp{
+import upload from './infra/upload';
+
+class StartUp {
     public app: express.Application;
     private _db: Database;
     private bodyParser;
-    
+
     constructor() {
         this.app = express();
         this._db = new Database();
         this._db.createConnection();
-        this.middler();        
+        this.middler();
         this.routes();
     }
 
-    enableCors(){
+    enableCors() {
         const options: cors.CorsOptions = {
             methods: "GET,OPTIONS,PUT,POST,DELETE",
             origin: "*"
@@ -29,19 +31,28 @@ class StartUp{
         this.app.use(cors(options));
     }
 
-    middler(){
+    middler() {
         this.enableCors();
         this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({extended: false}));
+        this.app.use(bodyParser.urlencoded({ extended: false }));
     }
 
-    routes(){
+    routes() {
+        this.app.route("/").get((req, res) => res.send({ versão: '0.0.1' }));
+        this.app.route("/uploads").post(upload.single('file'), (req, res) => {
+            try {
+                res.send("arquivo enviado com sucesso!");
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
         this.app.route("/").get((req,res) => res.send({ versão: '0.0.1'}));
         this.app.route("/api/v1/register").post(UserController.register);
         this.app.route("/api/v1/login").get(UserController.login);
         
         this.app.use(Auth.validate);
-        
+
         //newsController
         this.app.route("/api/v1/news").get(NewsController.get);
         this.app.route("/api/v1/news/:id").get(NewsController.getById);
