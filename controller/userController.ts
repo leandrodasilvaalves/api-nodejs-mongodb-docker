@@ -6,6 +6,8 @@ import Auth from '../infra/auth';
 import { ILoginModel } from '../interfaces/ILoginModel';
 import { UserValidation } from '../validations/userValidation';
 import { LoginValidation } from '../validations/loginValidation';
+import { ChangePasswordvalidation } from '../validations/changePasswordValidation';
+import { IchangePasswordModel } from '../interfaces/IChangePasswordModel';
 
 class UserController {
 
@@ -51,7 +53,13 @@ class UserController {
     }
 
     changePassword(req, res) {
-        const user: IUserModel = req.body;
+        const user: IchangePasswordModel = req.body;
+        const validation = new ChangePasswordvalidation(user);
+        validation.validate();
+
+        if (!validation.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validation.listErrors });
+
         userService.changePassword(user)
             .then(data => {
                 const user = <IUserModel>data;

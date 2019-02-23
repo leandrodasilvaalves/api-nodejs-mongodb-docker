@@ -21,7 +21,7 @@ console.log('Test-Fail-Init------------------------------------');
 this.user = <IchangePasswordModel>{};
 this.user.email = "leandro@gmail.com";
 this.user.oldPassword = "123@Mudar";
-this.user.newPassword = "abc";
+this.user.newPassword = "Abc1";
 
 this.validation = new ChangePasswordvalidation(this.user);
 this.validation.validate();
