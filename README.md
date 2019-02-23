@@ -10,6 +10,8 @@ npm i cors --save
 npm i @types/cors --save-dev
 npm i jsonwebtoken --save
 npm i @types/jsonwebtoken --save-dev
+npm i multer --save
+npm i @types/multer --save-dev
 
 ```
 
