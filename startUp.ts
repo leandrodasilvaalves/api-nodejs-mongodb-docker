@@ -4,6 +4,7 @@ import * as cors from 'cors';
 
 import Database from './infra/db';
 import NewsController from './controller/newsController';
+import UserController from  './controller/userController';
 import Auth from './infra/auth';
 
 import upload from './infra/upload';
@@ -46,6 +47,10 @@ class StartUp {
             }
         });
 
+        this.app.route("/").get((req,res) => res.send({ versão: '0.0.1'}));
+        this.app.route("/api/v1/register").post(UserController.register);
+        this.app.route("/api/v1/login").get(UserController.login);
+        
         this.app.use(Auth.validate);
 
         //newsController

@@ -54,3 +54,18 @@ fetch(url)
 Acessando as rotas protegidas pelo postman. Informar o header **x-access-token** e o **token**
 
 ![Postman](https://i.pinimg.com/originals/a0/bf/80/a0bf804e201b33f5be8fe2981456ef21.jpg)
+
+## Users
+Objeto JSON Para testar a API
+```json
+
+{
+	"email" : "leandro@email.com",
+    "userName" : "Leandro Alves",
+    "password" : "Mudar@123",
+    "phoneNumber" : "16 9999-8888",
+    "img" : "https://lh3.googleusercontent.com/-Ma-CU0OeYl0/XAgjtvtiX0I/AAAAAAAAaNo/wgoO8RFOaQ86Ucb0wS4sXqF6xhUxZyrjwCEwYBhgL/w139-h140-p/Leandro%2Bda%2BSilva%2BAlves-2.jpg",
+    "active" : true
+}
+
+```
