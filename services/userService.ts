@@ -1,18 +1,18 @@
 import UserRepository from '../repositories/userRepository';
-import userRepository from '../repositories/userRepository';
-
+import { IUserModel } from '../interfaces/IUserModel';
+import { ILoginModel } from '../interfaces/ILoginModel';
 
 class UserService {
-    create(user) {
+    create(user: IUserModel) {
         return UserRepository.create(user);
     }
 
-    login(email: String, password: String) {
-        return userRepository.find({ "email": email, "password": password });
+    login(user: ILoginModel) {
+        return UserRepository.find({ "email": user.email, "password": user.password });
     }
 
-    token(){
-        
+    changePassword(user: IUserModel) {
+        return UserRepository.findOneAndUpdate({email: user.email}, {$set:{ password: user.password}});
     }
 }
 
