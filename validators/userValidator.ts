@@ -1,8 +1,8 @@
 import { IUserModel } from "../interfaces/IUserModel";
-import { Validation } from "./validation";
-import { PasswordValidation } from "./passwordValidation";
+import { ValidationBase } from "./validatorBase";
+import { PasswordValidator } from "./passwordValidator";
 
-export class UserValidation extends Validation {
+export class UserValidator extends ValidationBase {
 
     constructor(private _user: IUserModel) {
         super();
@@ -29,7 +29,7 @@ export class UserValidation extends Validation {
     }
 
     private validatePassword() {
-        const passwordValidator = new PasswordValidation(this._user.password.toString(), 'Password');
+        const passwordValidator = new PasswordValidator(this._user.password.toString(), 'Password');
         passwordValidator.validate();
         this.listErrors = this.listErrors.concat(passwordValidator.listErrors);
     }

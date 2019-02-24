@@ -4,20 +4,20 @@ import Helper from "../infra/helper";
 import { IUserModel } from '../interfaces/IUserModel';
 import Auth from '../infra/auth';
 import { ILoginModel } from '../interfaces/ILoginModel';
-import { UserValidation } from '../validations/userValidation';
-import { LoginValidation } from '../validations/loginValidation';
-import { ChangePasswordvalidation } from '../validations/changePasswordValidation';
-import { IchangePasswordModel } from '../interfaces/IChangePasswordModel';
+import { UserValidator } from '../validators/userValidator';
+import { LoginValidator } from '../validators/loginValidator';
+import { ValidatorOfPasswordChange } from '../validators/validatorOfPasswordChange';
+import { IChangePasswordModel } from '../interfaces/IChangePasswordModel';
 
 class UserController {
 
     register(req, res) {
         const user: IUserModel = req.body;
-        const validation = new UserValidation(user);
-        validation.validate();
+        const validator = new UserValidator(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Usuário inválido', errors: validation.listErrors });
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Usuário inválido', errors: validator.listErrors });
 
         userService.create(user)
             .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Usuário registrado com sucesso!` }))
@@ -26,11 +26,11 @@ class UserController {
 
     login(req, res) {
         const user: ILoginModel = req.body;
-        const validation = new LoginValidation(user);
-        validation.validate();
+        const validator = new LoginValidator(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Dados inválidos', errors: validation.listErrors });
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Dados inválidos', errors: validator.listErrors });
 
         userService.login(user)
             .then(data => {
@@ -53,12 +53,12 @@ class UserController {
     }
 
     changePassword(req, res) {
-        const user: IchangePasswordModel = req.body;
-        const validation = new ChangePasswordvalidation(user);
-        validation.validate();
+        const user: IChangePasswordModel = req.body;
+        const validator = new ValidatorOfPasswordChange(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validation.listErrors });
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validator.listErrors });
 
         userService.changePassword(user)
             .then(data => {

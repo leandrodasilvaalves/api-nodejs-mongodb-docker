@@ -1,7 +1,7 @@
-import { Validation } from "./validation";
+import { ValidationBase } from "./validatorBase";
 import { ILoginModel } from "../interfaces/ILoginModel";
 
-export class LoginValidation extends Validation{
+export class LoginValidator extends ValidationBase{
    
     constructor(private _loginModel: ILoginModel) {
         super();

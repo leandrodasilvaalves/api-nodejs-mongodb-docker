@@ -1,4 +1,4 @@
-import { UserValidation } from "../validations/userValidation";
+import { UserValidator } from "../validators/userValidator";
 import { IUserModel } from "../interfaces/IUserModel";
 
 console.log('Test-Success-Init------------------------------------');
@@ -10,10 +10,10 @@ this.user.phoneNumber = "16993947762";
 this.user.img = "http://abcd.efgh.ijk.jpg";
 this.user.password = "Mudar@123";
 
-this.validation = new UserValidation(this.user);
-this.validation.validate();
-console.log(`isValid: ${ this.validation.isValid() }`);
-console.log(this.validation.listErrors);
+this.validator = new UserValidator(this.user);
+this.validator.validate();
+console.log(`isValid: ${ this.validator.isValid() }`);
+console.log(this.validator.listErrors);
 
 console.log('Test-Success-End------------------------------------');
 console.log('');
@@ -26,9 +26,9 @@ this.user.phoneNumber = "947762";
 this.user.img = "http://abcd.efgh.ijk.pdf";
 this.user.password = "mudar";
 
-this.validation = new UserValidation(this.user);
-this.validation.validate();
-console.log(`isValid: ${ this.validation.isValid() }`);
-console.log(this.validation.listErrors);
+this.validator = new UserValidator(this.user);
+this.validator.validate();
+console.log(`isValid: ${ this.validator.isValid() }`);
+console.log(this.validator.listErrors);
 
 console.log('Test-Fail-End---------------------------------------');

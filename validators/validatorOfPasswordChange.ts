@@ -1,12 +1,12 @@
-import { Validation } from "./validation";
-import { IchangePasswordModel } from "../interfaces/IChangePasswordModel";
+import { ValidationBase } from "./validatorBase";
+import { IChangePasswordModel as IChangePasswordModel } from "../interfaces/IChangePasswordModel";
 import UserRepository from '../repositories/userRepository';
 import { IError } from "../interfaces/IError";
-import { PasswordValidation } from "./passwordValidation";
+import { PasswordValidator } from "./passwordValidator";
 
-export class ChangePasswordvalidation extends Validation {
+export class ValidatorOfPasswordChange extends ValidationBase {
 
-    constructor(private model: IchangePasswordModel) {
+    constructor(private model: IChangePasswordModel) {
         super();
     }
 
@@ -23,7 +23,7 @@ export class ChangePasswordvalidation extends Validation {
     }
 
     validatePattern(): void {
-        const passwordValidator = new PasswordValidation(this.model.newPassword.toString(), 'New Password');
+        const passwordValidator = new PasswordValidator(this.model.newPassword.toString(), 'New Password');
         passwordValidator.validate();
         this.listErrors = this.listErrors.concat(passwordValidator.listErrors);
     }

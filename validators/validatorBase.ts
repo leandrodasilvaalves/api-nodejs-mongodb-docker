@@ -1,6 +1,6 @@
 import { IError } from "../interfaces/IError";
 
-export abstract class Validation{
+export abstract class ValidationBase{
     public listErrors: Array<IError>;
 
     public isValid(): boolean{
