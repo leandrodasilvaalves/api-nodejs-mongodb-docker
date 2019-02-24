@@ -6,6 +6,8 @@ import Auth from '../infra/auth';
 import { ILoginModel } from '../interfaces/ILoginModel';
 import { UserValidation } from '../validations/userValidation';
 import { LoginValidation } from '../validations/loginValidation';
+import { ChangePasswordvalidation } from '../validations/changePasswordValidation';
+import { IchangePasswordModel } from '../interfaces/IChangePasswordModel';
 
 class UserController {
 
@@ -14,14 +16,12 @@ class UserController {
         const validation = new UserValidation(user);
         validation.validate();
 
-        if (validation.isValid()) {
-            userService.create(user)
-                .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Usuário registrado com sucesso!` }))
-                .catch(error => console.error.bind(console, `Error ${error}`));
-        }
-        else {
+        if (!validation.isValid())
             Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Usuário inválido', errors: validation.listErrors });
-        }
+
+        userService.create(user)
+            .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Usuário registrado com sucesso!` }))
+            .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
     login(req, res) {
@@ -29,33 +29,37 @@ class UserController {
         const validation = new LoginValidation(user);
         validation.validate();
 
-        if (validation.isValid()) {
-            userService.login(user)
-                .then(data => {
-                    if (data.length === 1) {
-                        const userData = <IUserModel>data[0];
-                        const loginModel: ILoginModel = {
-                            email: userData.email,
-                            userName: userData.userName,
-                            img: userData.img,
-                            token: Auth.getToken(userData)
-                        };
-                        Helper.sendResponse(res, HttpStatus.OK, {
-                            logged: true, message: 'Logado com sucesso', loggedUser: loginModel
-                        });
-                    }
-                    else
-                        Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Usuário e/ou senha inválidos!' })
-                })
-                .catch(error => console.error.bind(console, `Error ${error}`));
-        }
-        else {
+        if (!validation.isValid())
             Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Dados inválidos', errors: validation.listErrors });
-        }
+
+        userService.login(user)
+            .then(data => {
+                if (data.length === 1) {
+                    const userData = <IUserModel>data[0];
+                    const loginModel: ILoginModel = {
+                        email: userData.email,
+                        userName: userData.userName,
+                        img: userData.img,
+                        token: Auth.getToken(userData)
+                    };
+                    Helper.sendResponse(res, HttpStatus.OK, {
+                        logged: true, message: 'Logado com sucesso', loggedUser: loginModel
+                    });
+                }
+                else
+                    Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Usuário e/ou senha inválidos!' })
+            })
+            .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
     changePassword(req, res) {
-        const user: IUserModel = req.body;
+        const user: IchangePasswordModel = req.body;
+        const validation = new ChangePasswordvalidation(user);
+        validation.validate();
+
+        if (!validation.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validation.listErrors });
+
         userService.changePassword(user)
             .then(data => {
                 const user = <IUserModel>data;

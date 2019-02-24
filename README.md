@@ -55,6 +55,22 @@ Acessando as rotas protegidas pelo postman. Informar o header **x-access-token**
 
 ![Postman](https://i.pinimg.com/originals/a0/bf/80/a0bf804e201b33f5be8fe2981456ef21.jpg)
 
+### Exemplo de como obter um token de forma rápida e simples
+```javascript
+const jwt = require("jsonwebtoken");
+
+let payload = {
+    iss: "leandroalves86",
+    iat: new Date().getSeconds(),
+    exp: new Date().setMinutes(15),
+    name: "Leandro Alves",
+    email: "leandro.silva.alves86@gmail.com"
+};
+
+var token = jwt.sign(payload, "batman batman batman");
+console.log(token);
+```
+
 ## Users
 Objeto JSON Para testar a API
 ```json

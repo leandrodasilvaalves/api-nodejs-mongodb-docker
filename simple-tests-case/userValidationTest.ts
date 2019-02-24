@@ -24,7 +24,7 @@ this.user.userName = "Le";
 this.user.email = "leandroemail.com";
 this.user.phoneNumber = "947762";
 this.user.img = "http://abcd.efgh.ijk.pdf";
-this.user.password = "mudar123";
+this.user.password = "mudar";
 
 this.validation = new UserValidation(this.user);
 this.validation.validate();
