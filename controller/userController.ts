@@ -62,6 +62,9 @@ class UserController {
 
         userService.changePassword(user)
             .then(data => {
+                if(data == null)
+                    Helper.sendResponse(res, HttpStatus.NOT_FOUND, { messsage: 'Nenhum usuário localizado com este e-mail e senha.' });
+
                 const user = <IUserModel>data;
                 Helper.sendResponse(res, HttpStatus.OK, {
                     message: 'Senha atualizada com sucesso', user: { userName: user.userName, email: user.email, img: user.img }
@@ -71,4 +74,4 @@ class UserController {
     }
 }
 
-export default new UserController();
+export default new UserController();.

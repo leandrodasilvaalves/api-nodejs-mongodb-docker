@@ -13,7 +13,7 @@ class UserService {
     }
 
     changePassword(user: IChangePasswordModel) {
-        return UserRepository.findOneAndUpdate({email: user.email}, {$set:{ password: user.newPassword}});
+        return UserRepository.findOneAndUpdate({"email": user.email, "password":  user.oldPassword}, {$set:{ password: user.newPassword}});
     }
 }
 
