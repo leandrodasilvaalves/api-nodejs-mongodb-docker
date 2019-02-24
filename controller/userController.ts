@@ -17,10 +17,10 @@ class UserController {
         validator.validate();
 
         if (!validator.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Usuário inválido', errors: validator.listErrors });
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid user', errors: validator.listErrors });
 
         userService.create(user)
-            .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Usuário registrado com sucesso!` }))
+            .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Registered user successfully!` }))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -30,7 +30,7 @@ class UserController {
         validator.validate();
 
         if (!validator.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Dados inválidos', errors: validator.listErrors });
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid data', errors: validator.listErrors });
 
         userService.login(user)
             .then(data => {
@@ -43,11 +43,11 @@ class UserController {
                         token: Auth.getToken(userData)
                     };
                     Helper.sendResponse(res, HttpStatus.OK, {
-                        logged: true, message: 'Logado com sucesso', loggedUser: loginModel
+                        logged: true, message: 'Successfully logged in', loggedUser: loginModel
                     });
                 }
                 else
-                    Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Usuário e/ou senha inválidos!' })
+                    Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Invalid user and/or password!' })
             })
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
@@ -58,20 +58,21 @@ class UserController {
         validator.validate();
 
         if (!validator.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validator.listErrors });
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Invalid data', errors: validator.listErrors });
+        else {
+            userService.changePassword(user)
+                .then(data => {
+                    if (data == null)
+                        Helper.sendResponse(res, HttpStatus.NOT_FOUND, { messsage: 'No user found with this email and password.' });
 
-        userService.changePassword(user)
-            .then(data => {
-                if(data == null)
-                    Helper.sendResponse(res, HttpStatus.NOT_FOUND, { messsage: 'Nenhum usuário localizado com este e-mail e senha.' });
-
-                const user = <IUserModel>data;
-                Helper.sendResponse(res, HttpStatus.OK, {
-                    message: 'Senha atualizada com sucesso', user: { userName: user.userName, email: user.email, img: user.img }
-                });
-            })
-            .catch(error => console.error.bind(console, `Error ${error}`));
+                    const user = <IUserModel>data;
+                    Helper.sendResponse(res, HttpStatus.OK, {
+                        message: 'Password updated successfully', user: { userName: user.userName, email: user.email, img: user.img }
+                    });
+                })
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 }
 
-export default new UserController();.
+export default new UserController();
