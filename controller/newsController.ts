@@ -39,7 +39,6 @@ class NewsController {
             .then(news => Helper.sendResponse(res, HttpStatus.OK, `News successfully deleted!`))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
-
 }
 
 export default new NewsController();
