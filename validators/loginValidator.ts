@@ -13,12 +13,14 @@ export class LoginValidator extends ValidationBase{
     }
 
     validatePassword(): any {
-        const test: boolean = this._loginModel.password != null && this._loginModel.password != '';
+        const { password } = this._loginModel;
+        const test: boolean = password != null && password != '';
         this.testExpression(test, 'Password', "Password can't be null");
     }
 
     validateEmail(): any {
-        const test: boolean = this._loginModel.email != null && this._loginModel.email != '';
+        const { email } = this._loginModel;
+        const test: boolean = email != null && email != '';
         this.testExpression(test, 'E-mail', "E-mail can't be null");
     }
 }

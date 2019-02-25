@@ -23,10 +23,12 @@ export abstract class ValidationBase{
     }
 
     protected hasMaxLength(value: String, maxLength: number): boolean{
+        if(this.isNullOrEmpty(value)) return false;
         return value.length <= maxLength;
     }
 
     protected hasMinLength(value: String, minLength: number): boolean{
+        if(this.isNullOrEmpty(value)) return false;
         return value.length >= minLength;
     }
 }
