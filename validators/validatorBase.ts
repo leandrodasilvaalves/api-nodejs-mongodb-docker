@@ -17,4 +17,16 @@ export abstract class ValidationBase{
     }
 
     abstract validate(): void;
+
+    protected isNullOrEmpty(value: String): boolean{
+        return value == null || value =='';
+    }
+
+    protected hasMaxLength(value: String, maxLength: number): boolean{
+        return value.length <= maxLength;
+    }
+
+    protected hasMinLength(value: String, minLength: number): boolean{
+        return value.length >= minLength;
+    }
 }
