@@ -1,6 +1,6 @@
 import { IError } from "../interfaces/IError";
 
-export abstract class Validation{
+export abstract class ValidationBase{
     public listErrors: Array<IError>;
 
     public isValid(): boolean{
@@ -17,4 +17,18 @@ export abstract class Validation{
     }
 
     abstract validate(): void;
+
+    protected isNullOrEmpty(value: String): boolean{
+        return value == null || value =='';
+    }
+
+    protected hasMaxLength(value: String, maxLength: number): boolean{
+        if(this.isNullOrEmpty(value)) return false;
+        return value.length <= maxLength;
+    }
+
+    protected hasMinLength(value: String, minLength: number): boolean{
+        if(this.isNullOrEmpty(value)) return false;
+        return value.length >= minLength;
+    }
 }

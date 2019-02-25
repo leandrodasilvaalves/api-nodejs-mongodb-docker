@@ -4,70 +4,76 @@ import Helper from "../infra/helper";
 import { IUserModel } from '../interfaces/IUserModel';
 import Auth from '../infra/auth';
 import { ILoginModel } from '../interfaces/ILoginModel';
-import { UserValidation } from '../validations/userValidation';
-import { LoginValidation } from '../validations/loginValidation';
-import { ChangePasswordvalidation } from '../validations/changePasswordValidation';
-import { IchangePasswordModel } from '../interfaces/IChangePasswordModel';
+import { UserValidator } from '../validators/userValidator';
+import { LoginValidator } from '../validators/loginValidator';
+import { ValidatorOfPasswordChange } from '../validators/validatorOfPasswordChange';
+import { IChangePasswordModel } from '../interfaces/IChangePasswordModel';
 
 class UserController {
 
     register(req, res) {
         const user: IUserModel = req.body;
-        const validation = new UserValidation(user);
-        validation.validate();
+        const validator = new UserValidator(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Usuário inválido', errors: validation.listErrors });
-
-        userService.create(user)
-            .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Usuário registrado com sucesso!` }))
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid user', errors: validator.listErrors });
+        else {
+            userService.create(user)
+                .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Registered user successfully!` }))
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     login(req, res) {
         const user: ILoginModel = req.body;
-        const validation = new LoginValidation(user);
-        validation.validate();
+        const validator = new LoginValidator(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Dados inválidos', errors: validation.listErrors });
-
-        userService.login(user)
-            .then(data => {
-                if (data.length === 1) {
-                    const userData = <IUserModel>data[0];
-                    const loginModel: ILoginModel = {
-                        email: userData.email,
-                        userName: userData.userName,
-                        img: userData.img,
-                        token: Auth.getToken(userData)
-                    };
-                    Helper.sendResponse(res, HttpStatus.OK, {
-                        logged: true, message: 'Logado com sucesso', loggedUser: loginModel
-                    });
-                }
-                else
-                    Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Usuário e/ou senha inválidos!' })
-            })
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid data', errors: validator.listErrors });
+        else {
+            userService.login(user)
+                .then(data => {
+                    if (data.length === 1) {
+                        const userData = <IUserModel>data[0];
+                        const loginModel: ILoginModel = {
+                            email: userData.email,
+                            userName: userData.userName,
+                            img: userData.img,
+                            token: Auth.getToken(userData)
+                        };
+                        Helper.sendResponse(res, HttpStatus.OK, {
+                            logged: true, message: 'Successfully logged in', loggedUser: loginModel
+                        });
+                    }
+                    else
+                        Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Invalid user and/or password!' })
+                })
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     changePassword(req, res) {
-        const user: IchangePasswordModel = req.body;
-        const validation = new ChangePasswordvalidation(user);
-        validation.validate();
+        const user: IChangePasswordModel = req.body;
+        const validator = new ValidatorOfPasswordChange(user);
+        validator.validate();
 
-        if (!validation.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Dados inválidos', errors: validation.listErrors });
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, messsage: 'Invalid data', errors: validator.listErrors });
+        else {
+            userService.changePassword(user)
+                .then(data => {
+                    if (data == null)
+                        Helper.sendResponse(res, HttpStatus.NOT_FOUND, { messsage: 'No user found with this email and password.' });
 
-        userService.changePassword(user)
-            .then(data => {
-                const user = <IUserModel>data;
-                Helper.sendResponse(res, HttpStatus.OK, {
-                    message: 'Senha atualizada com sucesso', user: { userName: user.userName, email: user.email, img: user.img }
-                });
-            })
-            .catch(error => console.error.bind(console, `Error ${error}`));
+                    const user = <IUserModel>data;
+                    Helper.sendResponse(res, HttpStatus.OK, {
+                        message: 'Password updated successfully', user: { userName: user.userName, email: user.email, img: user.img }
+                    });
+                })
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 }
 

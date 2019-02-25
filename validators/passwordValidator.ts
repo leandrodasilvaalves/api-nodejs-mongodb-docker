@@ -1,6 +1,6 @@
-import { Validation } from "./validation";
+import { ValidationBase } from "./validatorBase";
 
-export class PasswordValidation extends Validation {
+export class PasswordValidator extends ValidationBase {
     
     constructor(private passwordValue: string,  private passwordPropertyName: string) {
         super();
