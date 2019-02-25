@@ -12,7 +12,7 @@ export class PublicRoute {
 
     private static setUserRoutes(app: express.Application): void {
         app.route(`${configs.api_prefix}/register`).post(UserController.register);
-        app.route(`${configs.api_prefix}/login`).get(UserController.login);
+        app.route(`${configs.api_prefix}/login`).post(UserController.login);
     }
 
     private static setUploadRoutes(app: express.Application): void {

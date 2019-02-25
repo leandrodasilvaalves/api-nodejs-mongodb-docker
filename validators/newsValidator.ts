@@ -10,7 +10,6 @@ export class NewsValidator extends ValidationBase {
     private textMaxLength: number = 5000;
     private textMinLength: number = 500;
 
-
     constructor(private model: INewsModel) {
         super();
     }
@@ -56,7 +55,6 @@ export class NewsValidator extends ValidationBase {
         let pattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
         const regeExp = new RegExp(pattern);
         this.testExpression(regeExp.test(link.toString()), 'Link', 'Invalid link.');
-
     }
 
     private getMessageError(propertyName: String, maxLength: number, minLength: number): String {

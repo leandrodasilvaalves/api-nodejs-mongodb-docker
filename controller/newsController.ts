@@ -1,6 +1,8 @@
 import NewsService from '../services/newsService';
 import * as HttpStatus from 'http-status';
 import Helper from "../infra/helper";
+import { NewsValidator } from '../validators/newsValidator';
+import { INewsModel } from '../interfaces/INewsModel';
 
 class NewsController {
 
@@ -18,19 +20,32 @@ class NewsController {
     }
 
     create(req, res) {
-        let news = req.body;
-        NewsService.create(news)
-            .then(news => Helper.sendResponse(res, HttpStatus.OK, `News registered successfully!`))
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        const news = <INewsModel>req.body;
+        const validator = new NewsValidator(news);
+        validator.validate();
+
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
+        else {
+            NewsService.create(news)
+                .then(news => Helper.sendResponse(res, HttpStatus.OK, `News registered successfully!`))
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     update(req, res) {
         const _id = req.params.id;
-        let news = req.body;
+        const news = <INewsModel>req.body;
+        const validator = new NewsValidator(news);
+        validator.validate();
 
-        NewsService.update(_id, news)
-            .then(news => Helper.sendResponse(res, HttpStatus.OK, `News updated successfully!`))
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        if (!validator.isValid())
+            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
+        else {
+            NewsService.update(_id, news)
+                .then(news => Helper.sendResponse(res, HttpStatus.OK, `News updated successfully!`))
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     delete(req, res) {

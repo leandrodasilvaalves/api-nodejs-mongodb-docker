@@ -18,10 +18,11 @@ class UserController {
 
         if (!validator.isValid())
             Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid user', errors: validator.listErrors });
-
-        userService.create(user)
-            .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Registered user successfully!` }))
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        else {
+            userService.create(user)
+                .then(user => Helper.sendResponse(res, HttpStatus.OK, { user: user, message: `Registered user successfully!` }))
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     login(req, res) {
@@ -31,25 +32,26 @@ class UserController {
 
         if (!validator.isValid())
             Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { user: user, message: 'Invalid data', errors: validator.listErrors });
-
-        userService.login(user)
-            .then(data => {
-                if (data.length === 1) {
-                    const userData = <IUserModel>data[0];
-                    const loginModel: ILoginModel = {
-                        email: userData.email,
-                        userName: userData.userName,
-                        img: userData.img,
-                        token: Auth.getToken(userData)
-                    };
-                    Helper.sendResponse(res, HttpStatus.OK, {
-                        logged: true, message: 'Successfully logged in', loggedUser: loginModel
-                    });
-                }
-                else
-                    Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Invalid user and/or password!' })
-            })
-            .catch(error => console.error.bind(console, `Error ${error}`));
+        else {
+            userService.login(user)
+                .then(data => {
+                    if (data.length === 1) {
+                        const userData = <IUserModel>data[0];
+                        const loginModel: ILoginModel = {
+                            email: userData.email,
+                            userName: userData.userName,
+                            img: userData.img,
+                            token: Auth.getToken(userData)
+                        };
+                        Helper.sendResponse(res, HttpStatus.OK, {
+                            logged: true, message: 'Successfully logged in', loggedUser: loginModel
+                        });
+                    }
+                    else
+                        Helper.sendResponse(res, HttpStatus.UNAUTHORIZED, { logged: false, message: 'Invalid user and/or password!' })
+                })
+                .catch(error => console.error.bind(console, `Error ${error}`));
+        }
     }
 
     changePassword(req, res) {
