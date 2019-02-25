@@ -1,4 +1,4 @@
-import { PasswordValidator } from '../validators/passwordValidator';
+import { PasswordValidator } from '../../src/validators/passwordValidator';
 
 const passwords: Array<string> = ['Mudar@123', 'Mudar123', 'Mudar@', 'mudar@123', '@123', '123', 'Mudar', 'Mu@1'];
 passwords.forEach(pass =>Validate(pass));

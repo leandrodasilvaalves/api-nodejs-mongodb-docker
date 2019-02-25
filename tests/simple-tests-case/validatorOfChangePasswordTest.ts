@@ -1,5 +1,5 @@
-import { IChangePasswordModel } from "../interfaces/IChangePasswordModel";
-import { ValidatorOfPasswordChange } from "../validators/validatorOfPasswordChange";
+import { IChangePasswordModel } from "../../src/interfaces/IChangePasswordModel";
+import { ValidatorOfPasswordChange } from "../../src/validators/validatorOfPasswordChange";
 
 console.log('Test-Success-Init------------------------------------');
 

@@ -1,5 +1,5 @@
-import { UserValidator } from "../validators/userValidator";
-import { IUserModel } from "../interfaces/IUserModel";
+import { UserValidator } from "../../src/validators/userValidator";
+import { IUserModel } from "../../src/interfaces/IUserModel";
 
 console.log('Test-Success-Init------------------------------------');
 

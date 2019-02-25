@@ -1,5 +1,5 @@
-import { ILoginModel } from "../interfaces/ILoginModel";
-import { LoginValidator } from "../validators/loginValidator";
+import { ILoginModel } from "../../src/interfaces/ILoginModel";
+import { LoginValidator } from "../../src/validators/loginValidator";
 
 console.log('Test-Success-Init------------------------------------');
 
