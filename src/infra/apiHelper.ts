@@ -1,7 +1,7 @@
-class Helper{
+class ApiHelper{
     sendResponse = function (res, statusCode, data) {
         res.status(statusCode).json({ result: data });
     }
 }
 
-export default new Helper();
+export default new ApiHelper();

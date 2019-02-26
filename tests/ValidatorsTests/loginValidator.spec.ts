@@ -1,5 +1,5 @@
-import { ILoginModel } from "../src/interfaces/ILoginModel";
-import { LoginValidator } from "../src/validators/loginValidator";
+import { ILoginModel } from "../../src/interfaces/ILoginModel";
+import { LoginValidator } from "../../src/validators/loginValidator";
 import { expect } from "chai";
 import 'mocha';
 

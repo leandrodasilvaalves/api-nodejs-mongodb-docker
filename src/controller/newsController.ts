@@ -1,6 +1,6 @@
 import NewsService from '../services/newsService';
 import * as HttpStatus from 'http-status';
-import Helper from "../infra/helper";
+import ApiHelper from "../infra/apiHelper";
 import { NewsValidator } from '../validators/newsValidator';
 import { INewsModel } from '../interfaces/INewsModel';
 
@@ -8,14 +8,14 @@ class NewsController {
 
     get(req, res) {
         NewsService.get()
-            .then(news => Helper.sendResponse(res, HttpStatus.OK, news))
+            .then(news => ApiHelper.sendResponse(res, HttpStatus.OK, news))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
     getById(req, res) {
         const _id = req.params.id;
         NewsService.getById(_id)
-            .then(news => Helper.sendResponse(res, HttpStatus.OK, news))
+            .then(news => ApiHelper.sendResponse(res, HttpStatus.OK, news))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -25,10 +25,10 @@ class NewsController {
         validator.validate();
 
         if (!validator.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
+            ApiHelper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
         else {
             NewsService.create(news)
-                .then(news => Helper.sendResponse(res, HttpStatus.OK, `News registered successfully!`))
+                .then(news => ApiHelper.sendResponse(res, HttpStatus.OK, `News registered successfully!`))
                 .catch(error => console.error.bind(console, `Error ${error}`));
         }
     }
@@ -40,10 +40,10 @@ class NewsController {
         validator.validate();
 
         if (!validator.isValid())
-            Helper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
+            ApiHelper.sendResponse(res, HttpStatus.BAD_REQUEST, { news: news, message: 'Invalid data', errors: validator.listErrors });
         else {
             NewsService.update(_id, news)
-                .then(news => Helper.sendResponse(res, HttpStatus.OK, `News updated successfully!`))
+                .then(news => ApiHelper.sendResponse(res, HttpStatus.OK, `News updated successfully!`))
                 .catch(error => console.error.bind(console, `Error ${error}`));
         }
     }
@@ -51,7 +51,7 @@ class NewsController {
     delete(req, res) {
         const _id = req.params.id;
         NewsService.delete(_id)
-            .then(news => Helper.sendResponse(res, HttpStatus.OK, `News successfully deleted!`))
+            .then(news => ApiHelper.sendResponse(res, HttpStatus.OK, `News successfully deleted!`))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 }

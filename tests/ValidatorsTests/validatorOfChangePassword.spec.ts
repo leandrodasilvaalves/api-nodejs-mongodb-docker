@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import 'mocha';
-import { IChangePasswordModel } from "../src/interfaces/IChangePasswordModel";
-import { ValidatorOfPasswordChange } from "../src/validators/validatorOfPasswordChange";
+import { IChangePasswordModel } from "../../src/interfaces/IChangePasswordModel";
+import { ValidatorOfPasswordChange } from "../../src/validators/validatorOfPasswordChange";
 
 describe('Validator Of Change Password Tests', () => {
     it('Shoud be success', () => {

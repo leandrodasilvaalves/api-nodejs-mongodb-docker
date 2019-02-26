@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import 'mocha';
-import { PasswordValidator } from '../src/validators/passwordValidator';
+import { PasswordValidator } from '../../src/validators/passwordValidator';
 
 describe('Password Validator Test', () => {
 
