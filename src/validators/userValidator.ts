@@ -25,11 +25,11 @@ export class UserValidator extends ValidationBase {
     private validateEmail() {
         const pattern: RegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         const regex = new RegExp(pattern);
-        this.testExpression(regex.test(this._user.email.toString()), 'E-mail', 'E-mail invalid');
+        this.testExpression(regex.test(this._user.email), 'E-mail', 'E-mail invalid');
     }
 
     private validatePassword() {
-        const passwordValidator = new PasswordValidator(this._user.password.toString(), 'Password');
+        const passwordValidator = new PasswordValidator(this._user.password, 'Password');
         passwordValidator.validate();
         this.listErrors = this.listErrors.concat(passwordValidator.listErrors);
     }
@@ -44,6 +44,6 @@ export class UserValidator extends ValidationBase {
     private validateImage() {
         const pattern: RegExp = /(http(s?):).+\.(?:jpg|png)/;
         const regex = new RegExp(pattern);
-        this.testExpression(regex.test(this._user.img.toString()), 'Image', 'Image invalid. Only .jpg or .png');
+        this.testExpression(regex.test(this._user.img), 'Image', 'Image invalid. Only .jpg or .png');
     }
 }

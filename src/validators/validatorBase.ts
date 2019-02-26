@@ -11,23 +11,23 @@ export abstract class ValidationBase{
         this.listErrors = new Array<IError>();
     }
 
-    protected testExpression(test: boolean, propertyName: string, message: String): void {
+    protected testExpression(test: boolean, propertyName: string, message: string): void {
         if (!test)
             this.listErrors.push(<IError>{ error: propertyName, description: message })
     }
 
     abstract validate(): void;
 
-    protected isNullOrEmpty(value: String): boolean{
+    protected isNullOrEmpty(value: string): boolean{
         return value == null || value =='';
     }
 
-    protected hasMaxLength(value: String, maxLength: number): boolean{
+    protected hasMaxLength(value: string, maxLength: number): boolean{
         if(this.isNullOrEmpty(value)) return false;
         return value.length <= maxLength;
     }
 
-    protected hasMinLength(value: String, minLength: number): boolean{
+    protected hasMinLength(value: string, minLength: number): boolean{
         if(this.isNullOrEmpty(value)) return false;
         return value.length >= minLength;
     }

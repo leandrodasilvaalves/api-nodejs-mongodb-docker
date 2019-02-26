@@ -1,12 +1,12 @@
 import * as mongoose from 'mongoose';
 
 export interface IUserModel extends mongoose.Document{
-    _id: String;
-    email : String;
-    userName : String;
-    password : String;
-    phoneNumber : String;
-    img : String;
+    _id: string;
+    email : string;
+    userName : string;
+    password : string;
+    phoneNumber : string;
+    img : string;
     createDate : Date;
     active : Boolean;
 }
