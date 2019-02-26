@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import 'mocha';
 import { PasswordValidator } from '../src/validators/passwordValidator';
 
-describe('Password Validator', () => {
+describe('Password Validator Test', () => {
 
     it('Must validate success and failure scenarios', () => {
         //arrange
