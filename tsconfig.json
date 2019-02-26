@@ -15,7 +15,8 @@
         "*.ts",
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "tests"
     ],
     "buildOnSave": true,
     "compileOnSave": true

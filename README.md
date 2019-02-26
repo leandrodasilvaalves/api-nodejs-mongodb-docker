@@ -4,8 +4,8 @@
 ```shell
 npm i typescript ts-node body-parser express http-status --save
 npm i @types/node @types/body-parser @types/express @types/http-status --save-dev
-npm install mongoose --save
-npm install @types/mongoose --save-dev
+npm i mongoose --save
+npm i @types/mongoose --save-dev
 npm i cors --save
 npm i @types/cors --save-dev
 npm i jsonwebtoken --save
@@ -14,6 +14,13 @@ npm i multer --save
 npm i @types/multer --save-dev
 
 ```
+## Testes de Unidade (Dependências)
+```shell
+npm i chai mocha ts-node --save-dev
+npm i @types/chai @types/mocha --save-dev
+
+```
+
 
 ## Execução da API
 ```shell
