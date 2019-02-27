@@ -13,7 +13,7 @@ export class ValidatorOfPasswordChange extends ValidationBase {
     }
 
     validatePattern(): void {
-        const passwordValidator = new PasswordValidator(this.model.newPassword.toString(), 'New Password');
+        const passwordValidator = new PasswordValidator(this.model.newPassword, 'New Password');
         passwordValidator.validate();
         this.listErrors = this.listErrors.concat(passwordValidator.listErrors);
     }

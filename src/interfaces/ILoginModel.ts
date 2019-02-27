@@ -1,7 +1,7 @@
 export interface ILoginModel{
-    email : String;
-    userName : String;
-    img : String;
-    token : String;
-    password?: String;
+    email : string;
+    userName : string;
+    img : string;
+    token : string;
+    password?: string;
 }

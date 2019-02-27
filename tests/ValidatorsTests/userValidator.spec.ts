@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import 'mocha';
-import { IUserModel } from "../src/interfaces/IUserModel";
-import { UserValidator } from "../src/validators/userValidator";
+import { IUserModel } from "../../src/interfaces/IUserModel";
+import { UserValidator } from "../../src/validators/userValidator";
 
 describe('User Validator Tests', () => {
     it('Should be success', () => {

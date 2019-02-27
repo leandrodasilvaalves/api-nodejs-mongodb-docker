@@ -1,10 +1,10 @@
 export interface INewsModel{
-    hat : String;
-    title : String;
-    text : String;
-    author : String;
-    img : String;
+    hat : string;
+    title : string;
+    text : string;
+    author : string;
+    img : string;
     publishDate : Date;
-    link: String;
+    link: string;
     active : Boolean;
 }

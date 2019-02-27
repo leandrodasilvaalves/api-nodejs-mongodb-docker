@@ -1,5 +1,5 @@
 export interface IChangePasswordModel {
-    email: String;
-    oldPassword: String;
-    newPassword: String;
+    email: string;
+    oldPassword: string;
+    newPassword: string;
 }
